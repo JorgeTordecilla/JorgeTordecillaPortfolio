@@ -5,8 +5,24 @@
   gap: 1.4rem;
   margin-top: 1.6rem;
   padding-top: 1.4rem;
-  border-top: 1px solid var(--border);
+  position: relative;
+  border-top: none;
   width: fit-content;
+}
+.stats-row::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(
+    to right,
+    transparent,
+    var(--accent-border) 25%,
+    rgba(94, 245, 194, 0.5) 50%,
+    var(--accent-border) 75%,
+    transparent
+  );
+  box-shadow: 0 0 8px rgba(94, 245, 194, 0.15);
 }
 .stat {
   display: flex;
@@ -32,7 +48,13 @@
 .stat-sep {
   width: 1px;
   height: 1.6rem;
-  background: var(--border);
+  background: linear-gradient(
+    to bottom,
+    transparent,
+    var(--accent-border) 40%,
+    var(--accent-border) 60%,
+    transparent
+  );
   flex-shrink: 0;
 }
 
