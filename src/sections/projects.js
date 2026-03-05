@@ -5,6 +5,7 @@ const PROJECTS = [
     tags: ['Python', 'Chatbots', 'LLM', 'Architecture', 'Automation'],
     github: null,
     demo: null,
+    internal: true,
   },
   {
     name: 'BudgetBuddy',
@@ -12,6 +13,7 @@ const PROJECTS = [
     tags: ['FastAPI', 'React', 'TypeScript', 'OpenAPI', 'Python', 'TDD'],
     github: 'https://github.com/JorgeTordecilla/BudgetBuddy',
     demo: null,
+    demoSoon: true,
   },
   {
     name: 'SEVAE',
@@ -27,32 +29,35 @@ const PROJECTS = [
     tags: ['Kafka', 'NestJS', 'React', 'Docker', 'PostgreSQL'],
     github: null,
     demo: null,
-  },
-  {
-    name: 'Rubik Portfolio',
-    desc: 'Portafolio interactivo con Cubo de Rubik 3D resuelto mediante scroll. La metáfora: cada sección ordenada es un paso hacia la solución.',
-    tags: ['Three.js', 'Vite', 'JavaScript', 'CSS'],
-    github: 'https://github.com/JorgeTordecilla/JorgeTordecillaPortfolio',
-    demo: 'https://JorgeTordecilla.github.io/JorgeTordecillaPortfolio',
+    internal: true,
   },
 ];
 
 export function renderProjects() {
   const grid = document.querySelector('.projects-grid');
   if (!grid) return;
+
   PROJECTS.forEach(p => {
     const card = document.createElement('div');
     card.className = 'project-card';
 
     const links = [];
+
     if (p.github && p.github2) {
       links.push(`<a href="${p.github}"  target="_blank" rel="noopener">Backend &rarr;</a>`);
       links.push(`<a href="${p.github2}" target="_blank" rel="noopener">Frontend &rarr;</a>`);
     } else if (p.github) {
       links.push(`<a href="${p.github}" target="_blank" rel="noopener">GitHub &rarr;</a>`);
     }
+
     if (p.demo) {
       links.push(`<a href="${p.demo}" target="_blank" rel="noopener">Live &rarr;</a>`);
+    } else if (p.demoSoon) {
+      links.push(`<span class="card-link-soon">Demo próximamente</span>`);
+    }
+
+    if (p.internal) {
+      links.push(`<span class="card-link-internal">Proyecto interno</span>`);
     }
 
     card.innerHTML = `
