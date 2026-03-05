@@ -2,10 +2,12 @@ const PROJECTS = [
   {
     name: 'Flow Builder — Juju',
     desc: 'Herramienta interna para automatizar la creación de flujos conversacionales en la plataforma de chatbots de Juju (programas de incentivos para 250+ empresas, 185k usuarios). Redujo el tiempo de implementación en un 30%. Co-diseñé la arquitectura multicanal completa de la solución.',
+    highlight: '185k usuarios\n30% más rápido',
     tags: ['Python', 'Chatbots', 'LLM', 'Architecture', 'Automation'],
     github: null,
     demo: null,
     internal: true,
+    featured: true,
   },
   {
     name: 'BudgetBuddy',
@@ -37,36 +39,57 @@ export function renderProjects() {
   const grid = document.querySelector('.projects-grid');
   if (!grid) return;
 
-  PROJECTS.forEach(p => {
+  PROJECTS.forEach((p, i) => {
     const card = document.createElement('div');
-    card.className = 'project-card';
+    card.className = p.featured
+      ? 'project-card project-card--featured'
+      : 'project-card';
+
+    const orderNum = String(i + 1).padStart(2, '0');
 
     const links = [];
-
     if (p.github && p.github2) {
       links.push(`<a href="${p.github}"  target="_blank" rel="noopener">Backend &rarr;</a>`);
       links.push(`<a href="${p.github2}" target="_blank" rel="noopener">Frontend &rarr;</a>`);
     } else if (p.github) {
       links.push(`<a href="${p.github}" target="_blank" rel="noopener">GitHub &rarr;</a>`);
     }
-
     if (p.demo) {
       links.push(`<a href="${p.demo}" target="_blank" rel="noopener">Live &rarr;</a>`);
     } else if (p.demoSoon) {
       links.push(`<span class="card-link-soon">Demo próximamente</span>`);
     }
-
     if (p.internal) {
       links.push(`<span class="card-link-internal">Proyecto interno</span>`);
     }
 
-    card.innerHTML = `
-      <p class="project-title">${p.name}</p>
-      <p class="project-desc">${p.desc}</p>
-      <div class="project-tags">
-        ${p.tags.map(t => `<span class="project-tag">${t}</span>`).join('')}
-      </div>
-      <div class="card-links">${links.join('')}</div>`;
+    const tagsHTML = p.tags.map(t => `<span class="project-tag">${t}</span>`).join('');
+    const linksHTML = links.join('');
+
+    if (p.featured) {
+      const highlightLines = (p.highlight || '').split('\n').map(l =>
+        `<span class="project-highlight-line">${l}</span>`
+      ).join('');
+
+      card.innerHTML = `
+        <div class="featured-main">
+          <span class="project-order">${orderNum}</span>
+          <p class="project-title">${p.name}</p>
+          <p class="project-desc">${p.desc}</p>
+          <div class="project-tags">${tagsHTML}</div>
+          <div class="card-links">${linksHTML}</div>
+        </div>
+        <aside class="featured-aside">
+          ${highlightLines}
+        </aside>`;
+    } else {
+      card.innerHTML = `
+        <span class="project-order">${orderNum}</span>
+        <p class="project-title">${p.name}</p>
+        <p class="project-desc">${p.desc}</p>
+        <div class="project-tags">${tagsHTML}</div>
+        <div class="card-links">${linksHTML}</div>`;
+    }
 
     grid.appendChild(card);
   });
