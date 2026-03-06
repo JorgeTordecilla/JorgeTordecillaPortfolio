@@ -2,69 +2,69 @@ const SKILLS = [
   {
     category: 'IA & Agentes',
     items: [
-      { name: 'OpenAI',           tip: '1 año · GPT-4 + embeddings' },
-      { name: 'Gemini',           tip: '1 año · multimodal' },
-      { name: 'Agentes IA',       tip: 'Multi-agente · tools · RAG' },
-      { name: 'Computer Vision',  tip: 'Detección y clasificación' },
+      { name: 'OpenAI',             tip: '1 año · GPT-4 + embeddings' },
+      { name: 'Gemini',             tip: '1 año · multimodal' },
+      { name: 'Agentes IA',         tip: 'Multi-agente · tools · RAG' },
+      { name: 'Computer Vision',    tip: 'Detección y clasificación' },
     ],
   },
   {
     category: 'Automatización',
     items: [
-      { name: 'N8N',              tip: '2 años · workflows complejos' },
-      { name: 'Make',             tip: 'Integración de APIs' },
-      { name: 'MessageBird',      tip: 'WhatsApp Business API' },
-      { name: 'Retool',           tip: 'Dashboards internos' },
-      { name: 'Low Code',         tip: 'Prototipado rápido' },
+      { name: 'N8N',                tip: '2 años · workflows complejos' },
+      { name: 'Make',               tip: 'Integración de APIs' },
+      { name: 'MessageBird',        tip: 'WhatsApp Business API' },
+      { name: 'Retool',             tip: 'Dashboards internos' },
+      { name: 'Low Code',           tip: 'Prototipado rápido' },
     ],
   },
   {
     category: 'Backend',
     items: [
-      { name: 'Python',           tip: '2 años · producción' },
-      { name: 'FastAPI',          tip: '2 años · APIs REST + async' },
-      { name: 'NestJS',           tip: '1 año · arquitectura modular' },
-      { name: 'Node.js',          tip: '2 años · microservicios' },
-      { name: 'Docker',           tip: 'Contenedores · CI/CD' },
+      { name: 'Python',             tip: '2 años · producción' },
+      { name: 'FastAPI',            tip: '2 años · APIs REST + async' },
+      { name: 'NestJS',             tip: '1 año · arquitectura modular' },
+      { name: 'Node.js',            tip: '2 años · microservicios' },
+      { name: 'Docker',             tip: 'Contenedores · CI/CD' },
     ],
   },
   {
     category: 'Frontend',
     items: [
-      { name: 'React',            tip: '2 años · componentes reutilizables' },
-      { name: 'TypeScript',       tip: '2 años · tipado estricto' },
-      { name: 'JavaScript',       tip: '4+ años · ES2024' },
+      { name: 'React',              tip: '2 años · componentes reutilizables' },
+      { name: 'TypeScript',         tip: '2 años · tipado estricto' },
+      { name: 'JavaScript',         tip: '4+ años · ES2024' },
     ],
   },
   {
     category: 'Bases de datos',
     items: [
-      { name: 'PostgreSQL',       tip: '3 años · queries complejos' },
-      { name: 'MongoDB',          tip: '2 años · documentos + agregaciones' },
+      { name: 'PostgreSQL',         tip: '3 años · queries complejos' },
+      { name: 'MongoDB',            tip: '2 años · documentos + agregaciones' },
     ],
   },
   {
     category: 'Bots & Canales',
     items: [
-      { name: 'Telegram',         tip: 'Bots · inline · webhooks' },
-      { name: 'WhatsApp',         tip: 'Business API · flows' },
-      { name: 'Twilio',           tip: 'SMS · voz · verificación' },
-      { name: 'Socket.io',        tip: 'Tiempo real · chat' },
+      { name: 'Telegram',           tip: 'Bots · inline · webhooks' },
+      { name: 'WhatsApp',           tip: 'Business API · flows' },
+      { name: 'Twilio',             tip: 'SMS · voz · verificación' },
+      { name: 'Socket.io',          tip: 'Tiempo real · chat' },
     ],
   },
   {
     category: 'Metodologías',
     items: [
-      { name: 'TDD',              tip: 'Test-driven · pytest · jest' },
-      { name: 'DDD',              tip: 'Domain-driven design' },
+      { name: 'TDD',                tip: 'Test-driven · pytest · jest' },
+      { name: 'DDD',                tip: 'Domain-driven design' },
       { name: 'Clean Architecture', tip: 'Hexagonal · capas' },
-      { name: 'OpenAPI',          tip: 'Swagger · contratos API' },
-      { name: 'Git',              tip: '4+ años · GitFlow · PRs' },
+      { name: 'OpenAPI',            tip: 'Swagger · contratos API' },
+      { name: 'Git',                tip: '4+ años · GitFlow · PRs' },
     ],
   },
 ];
 
-// On touch devices tooltips aren't accessible via hover.
+// On touch devices tooltips aren’t accessible via hover.
 // Instead we render the tip inline below the chip name.
 const isTouch = window.matchMedia('(hover: none)').matches;
 
@@ -88,13 +88,11 @@ export function renderSkills() {
       const chip = document.createElement('div');
 
       if (isTouch) {
-        // Mobile: stack name + tip inside chip, no hover needed
         chip.className = 'skill-chip skill-chip--touch';
         chip.innerHTML = `
           <span class="chip-name">${name}</span>
           <span class="chip-tip-inline">${tip}</span>`;
       } else {
-        // Desktop: tooltip on hover
         chip.className = 'skill-chip';
         chip.innerHTML = `${name}<span class="chip-tip">${tip}</span>`;
       }
@@ -105,4 +103,27 @@ export function renderSkills() {
     groupEl.appendChild(chipsRow);
     grid.appendChild(groupEl);
   });
+
+  // ─ Desktop only: one-shot "peek wave" when section enters viewport
+  // Teaches the hover affordance without any explanatory text.
+  if (!isTouch) {
+    const observer = new IntersectionObserver((entries) => {
+      if (!entries[0].isIntersecting) return;
+      observer.disconnect(); // fire only once
+
+      const chips = Array.from(grid.querySelectorAll('.skill-chip'));
+
+      // Short delay so the section’s own fade-in finishes first
+      setTimeout(() => {
+        chips.forEach((chip, i) => {
+          setTimeout(() => {
+            chip.classList.add('chip-peek');
+            setTimeout(() => chip.classList.remove('chip-peek'), 480);
+          }, i * 32);
+        });
+      }, 650);
+    }, { threshold: 0.2 });
+
+    observer.observe(grid);
+  }
 }

@@ -120,7 +120,7 @@ initJorgeEasterEgg(rubikCube);
 /* ─── Scroll → solve cube ───────────────────────────── */
 initScrollController(rubikCube);
 
-/* ─── Contact: cube glow + hide float pill ───────────────── */
+/* ─── Contact: cube glow + hint + hide float pill ──────────── */
 const contactEl    = document.getElementById('contact');
 const contactFloat = document.getElementById('contact-float');
 if (contactEl) {
@@ -129,6 +129,13 @@ if (contactEl) {
     if (visible) {
       setTimeout(() => document.body.classList.add('cube-solved'), 800);
       if (contactFloat) contactFloat.classList.add('contact-float--hidden');
+
+      // Easter egg hint: reveal after 3 s, only the first time
+      const hint = document.querySelector('.easter-hint');
+      if (hint && !hint._shown) {
+        hint._shown = true;
+        setTimeout(() => hint.classList.add('easter-hint--visible'), 3000);
+      }
     } else {
       document.body.classList.remove('cube-solved');
       if (contactFloat) contactFloat.classList.remove('contact-float--hidden');
