@@ -64,8 +64,6 @@ const SKILLS = [
   },
 ];
 
-// On touch devices tooltips aren’t accessible via hover.
-// Instead we render the tip inline below the chip name.
 const isTouch = window.matchMedia('(hover: none)').matches;
 
 export function renderSkills() {
@@ -86,7 +84,6 @@ export function renderSkills() {
 
     group.items.forEach(({ name, tip }) => {
       const chip = document.createElement('div');
-
       if (isTouch) {
         chip.className = 'skill-chip skill-chip--touch';
         chip.innerHTML = `
@@ -96,7 +93,6 @@ export function renderSkills() {
         chip.className = 'skill-chip';
         chip.innerHTML = `${name}<span class="chip-tip">${tip}</span>`;
       }
-
       chipsRow.appendChild(chip);
     });
 
@@ -104,24 +100,33 @@ export function renderSkills() {
     grid.appendChild(groupEl);
   });
 
-  // ─ Desktop only: one-shot "peek wave" when section enters viewport
-  // Teaches the hover affordance without any explanatory text.
+  // ─ Desktop only: one-shot beacon on the first chip when section enters.
+  // Phase 1 (700ms): ring-pulse animation on the chip — signals "hover me".
+  // Phase 2 (700ms): tooltip peeks open so the visitor sees what’s inside.
+  // Fires only once; observer disconnects immediately after.
   if (!isTouch) {
     const observer = new IntersectionObserver((entries) => {
       if (!entries[0].isIntersecting) return;
-      observer.disconnect(); // fire only once
+      observer.disconnect();
 
-      const chips = Array.from(grid.querySelectorAll('.skill-chip'));
+      const firstChip = grid.querySelector('.skill-chip');
+      if (!firstChip) return;
 
-      // Short delay so the section’s own fade-in finishes first
+      // Wait for section’s own fade-in to settle
       setTimeout(() => {
-        chips.forEach((chip, i) => {
+        // Phase 1: beacon pulse (double ring)
+        firstChip.classList.add('chip-beacon');
+
+        // Phase 2: show tooltip after the pulse completes
+        setTimeout(() => {
+          firstChip.classList.add('chip-peek');
+
+          // Phase 3: clean up — back to normal hover behavior
           setTimeout(() => {
-            chip.classList.add('chip-peek');
-            setTimeout(() => chip.classList.remove('chip-peek'), 480);
-          }, i * 32);
-        });
-      }, 650);
+            firstChip.classList.remove('chip-peek', 'chip-beacon');
+          }, 650);
+        }, 750);
+      }, 700);
     }, { threshold: 0.2 });
 
     observer.observe(grid);
