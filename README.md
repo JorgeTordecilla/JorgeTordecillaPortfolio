@@ -1,33 +1,15 @@
 # Jorge Iván Tordecilla — Portfolio
 
-Portfolio personal de **Jorge Iván Tordecilla**, Software Engineer con 5+ años de experiencia especializado en automatización, agentes IA y chatbots multicanal. Construido desde cero con Vite + Three.js, sin frameworks UI.
+Portfolio personal de **Jorge Iván Tordecilla**, Software Engineer especializado en automatización, agentes IA y chatbots multicanal. Construido desde cero con Vite + Three.js, sin frameworks UI.
 
 🔗 **Live:** [jorgetordecilla.github.io/JorgeTordecillaPortfolio](https://jorgetordecilla.github.io/JorgeTordecillaPortfolio/)
 
 ---
 
-## 👨‍💻 Sobre el autor
-
-| | |
-|---|---|
-| **Rol actual** | Automation Developer @ **Juju** — Chatbots, IA & Low Code |
-| **Experiencia** | 5+ años en desarrollo web y móvil |
-| **Ubicación** | Medellín, Colombia 🇨🇴 |
-| **Empresas anteriores** | Ceiba Software (2021–2023) · Oderman (2023) |
-| **Contacto** | jorge.tordecilla166@gmail.com |
-
-### 🎓 Educación
-
-- **Ingeniería de Software** — Corporación Universitaria Iberoamericana (2023)
-- **Tecnólogo en Mecatrónica** — Institución Universitaria Pascual Bravo (2017)
-- **Diploma en Programación** — Samsung Innovation Campus & Pontificia Universidad Javeriana (2021)
-
----
-
-## ✨ Features del sitio
+## ✨ Features
 
 ### 3D & Animación
-- **Rubik’s Cube 3D** (Three.js) que se resuelve progresivamente al hacer scroll
+- **Rubik's Cube 3D** (Three.js) que se resuelve progresivamente al hacer scroll
 - **Custom cursor** con punto y anillo seguidor animado
 - **Magnetic buttons** — los CTAs se atraen hacia el cursor
 - **Gradient mesh** animado en el fondo del hero
@@ -35,7 +17,7 @@ Portfolio personal de **Jorge Iván Tordecilla**, Software Engineer con 5+ años
 - **Scroll reveal** con `IntersectionObserver` y easing personalizado
 
 ### Secciones
-- **Hero** con stats counter animado (5+ años · 12+ proyectos · 30% más rápido)
+- **Hero** con stats counter animado (4+ años · 12+ proyectos · 30% más rápido)
 - **About** — grid asimétrico, foto con anillo giratorio, badge *Disponible para proyectos* con dot pulsante
 - **Skills** — 28 chips agrupados por categoría con tooltips de experiencia al hover. En la primera entrada, el primer chip hace un beacon pulse para enseñar la interacción. En mobile los tooltips son siempre visibles.
 - **Projects** — card destacada (Juju, full-width con métricas laterales) + grid de proyectos con número de orden
@@ -44,9 +26,7 @@ Portfolio personal de **Jorge Iván Tordecilla**, Software Engineer con 5+ años
 ### UX & Polish
 - **Section nav lateral** que resalta la sección activa durante el scroll
 - **Loader** con barra de progreso animada
-- **Float pill** “Hablemos” que se oculta al llegar a Contacto
-- **Focus-visible** para navegación por teclado
-- **`document.hidden` guard** — render loop se pausa con el tab en segundo plano
+- **Float pill** "Hablemos" que se oculta al llegar a Contacto
 - **OG / Twitter card** configuradas para compartir en redes
 - Diseño 100% responsivo · dark mode nativo
 
@@ -72,23 +52,6 @@ Hay una pista visual en la sección de Contacto que aparece después de 3 segund
 | Estilos | CSS puro (custom properties, grid, clamp) |
 | Fonts | DM Serif Display + DM Sans (Google Fonts) |
 | Deploy | GitHub Pages (gh-pages) |
-
-### Tecnologías del autor
-
-**Backend & Cloud**
-`Python` `Node.js` `NestJS` `FastAPI` `ExpressJS` `Docker` `Kubernetes` `Kafka`
-
-**Frontend**
-`React` `TypeScript` `JavaScript (ES2024)` `Bootstrap`
-
-**Bases de datos**
-`PostgreSQL` `MongoDB`
-
-**IA & Automatización**
-`OpenAI` `Gemini` `Agentes IA` `N8N` `Make` `WhatsApp Business API` `Twilio`
-
-**Metodologías**
-`Clean Architecture` `Hexagonal` `TDD` `DDD` `OpenAPI` `GitFlow`
 
 ---
 
@@ -117,7 +80,7 @@ src/
 │   ├── magneticButton.js     # efecto magnético en botones
 │   ├── gradientMesh.js       # fondo animado del hero
 │   ├── divider.js            # línea divisora con glow animado
-│   └── jorgeEasterEgg.js     # easter egg: explosión de cubitos al escribir “jorge”
+│   └── jorgeEasterEgg.js     # easter egg: explosión de cubitos al escribir "jorge"
 ├── cube/
 │   ├── RubikCube.js          # geometría, materiales y lógica del cubo
 │   ├── LayerRotation.js      # rotación de capas con GSAP
@@ -136,4 +99,4 @@ src/
 
 ---
 
-© 2026 Jorge Iván Tordecilla · Medellín, Colombia
+© 2026 Jorge Iván Tordecilla · Colombia
