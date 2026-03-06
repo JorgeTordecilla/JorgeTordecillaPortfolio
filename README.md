@@ -8,16 +8,38 @@ Portfolio personal de **Jorge Iván Tordecilla**, Software Engineer especializad
 
 ## ✨ Features
 
-- **Rubik's Cube 3D** interactivo (Three.js) que se resuelve al hacer scroll
-- **Custom cursor** con efecto seguidor animado
-- **Magnetic buttons** — los botones se atraen hacia el cursor
-- **Noise grain overlay** cinematográfico sobre el fondo
-- **Skill chips con tooltips** — hover revela años de experiencia por tecnología
-- **Scroll reveal** animado con `IntersectionObserver`
-- **Stats counter** animado (4+ años, 3 empresas, 30% más rápido)
-- **Section nav lateral** que resalta la sección activa
-- **Loader** con barra de progreso
-- Diseño 100% responsivo · Dark mode nativo
+### 3D & Animación
+- **Rubik’s Cube 3D** (Three.js) que se resuelve progresivamente al hacer scroll
+- **Custom cursor** con punto y anillo seguidor animado
+- **Magnetic buttons** — los CTAs se atraen hacia el cursor
+- **Gradient mesh** animado en el fondo del hero
+- **Divider animado** entre secciones con glow accent
+- **Scroll reveal** con `IntersectionObserver` y easing personalizado
+
+### Secciones
+- **Hero** con stats counter animado (4+ años · 12+ proyectos · 30% más rápido)
+- **About** — grid asimétrico, foto con anillo giratorio, badge *Disponible para proyectos* con dot pulsante
+- **Skills** — 28 chips agrupados por categoría con tooltips de experiencia al hover. En la primera entrada, el primer chip hace un beacon pulse para enseñar la interacción. En mobile los tooltips son siempre visibles.
+- **Projects** — card destacada (Juju, full-width con métricas laterales) + grid de proyectos con número de orden
+- **Contact** — email como elemento tipográfico grande, links sociales
+
+### UX & Polish
+- **Section nav lateral** que resalta la sección activa durante el scroll
+- **Loader** con barra de progreso animada
+- **Float pill** “Hablemos” que se oculta al llegar a Contacto
+- **OG / Twitter card** configuradas para compartir en redes
+- Diseño 100% responsivo · dark mode nativo
+
+### 🥚 Easter egg
+
+<details>
+<summary>Spoiler (solo para devs curiosos)</summary>
+
+Escribe `jorge` en el teclado (cualquier case) en cualquier parte del portfolio. Los 27 cubitos del Rubik explotan en dirección opuesta al origen, flotan 1.5 s, y vuelven a ensamblarse con spring physics.
+
+Hay una pista visual en la sección de Contacto que aparece después de 3 segundos.
+
+</details>
 
 ---
 
@@ -26,7 +48,7 @@ Portfolio personal de **Jorge Iván Tordecilla**, Software Engineer especializad
 | Capa | Tecnología |
 |---|---|
 | Build | Vite 6 |
-| 3D | Three.js |
+| 3D / Animación | Three.js + GSAP |
 | Estilos | CSS puro (custom properties, grid, clamp) |
 | Fonts | DM Serif Display + DM Sans (Google Fonts) |
 | Deploy | GitHub Pages (gh-pages) |
@@ -54,20 +76,25 @@ npm run deploy    # publica en GitHub Pages
 ```
 src/
 ├── animations/
-│   ├── magneticButton.js   # efecto magnético en botones
-│   └── ScrollController.js # sincroniza scroll con animación del cubo
+│   ├── ScrollController.js   # sincroniza scroll con animación del cubo
+│   ├── magneticButton.js     # efecto magnético en botones
+│   ├── gradientMesh.js       # fondo animado del hero
+│   ├── divider.js            # línea divisora con glow animado
+│   └── jorgeEasterEgg.js     # easter egg: explosión de cubitos al escribir “jorge”
 ├── cube/
-│   └── RubikCube.js        # geometría y animación del cubo
+│   ├── RubikCube.js          # geometría, materiales y lógica del cubo
+│   ├── LayerRotation.js      # rotación de capas con GSAP
+│   └── scramble.js           # secuencia de mezcla inicial
 ├── scene/
-│   └── SceneSetup.js       # cámara, renderer, luces
+│   └── SceneSetup.js         # cámara, renderer, luces
 ├── sections/
-│   ├── skills.js           # chips de habilidades con tooltips
-│   ├── projects.js         # tarjetas de proyectos
-│   └── stats.js            # contadores animados
+│   ├── skills.js             # chips con tooltips + beacon hint
+│   ├── projects.js           # tarjetas de proyectos (featured + grid)
+│   └── stats.js              # contadores animados
 ├── styles/
-│   ├── main.css            # tokens, hero, layout global
-│   └── sections.css        # estilos por sección
-└── main.js               # punto de entrada, orquesta todo
+│   ├── main.css              # tokens, hero, layout global
+│   └── sections.css          # estilos por sección
+└── main.js                   # punto de entrada, orquesta todo
 ```
 
 ---
