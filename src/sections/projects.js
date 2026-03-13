@@ -10,12 +10,11 @@ const PROJECTS = [
     featured: true,
   },
   {
-    name: 'BudgetBuddy',
+    name: 'BeBudget',
     desc: 'Monorepo contract-first: API REST (FastAPI + SQLAlchemy), frontend (React + TypeScript) y generación automática de SDKs en TypeScript y Python desde specs OpenAPI. TDD end-to-end.',
     tags: ['FastAPI', 'React', 'TypeScript', 'OpenAPI', 'Python', 'TDD'],
     github: 'https://github.com/JorgeTordecilla/BudgetBuddy',
-    demo: null,
-    demoSoon: true,
+    demo: 'https://bebudgetapp.vercel.app/login',
   },
   {
     name: 'SEVAE',
